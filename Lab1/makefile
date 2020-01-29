@@ -309,7 +309,7 @@ $(addsuffix .v, $(addprefix mapped/, $(TOP_MODULE))): mapped/%.v : source/%.sv $
 # dependencies and thus will resynthesize if any of them are newer as well.
 # It will pass on any of the related variables values if they were overwritten at runtime.
 # Also have to specify to run with the c shell to force it to use the course config (.cshrc) and call course scripts 
-mapped/%.v: SHELL := /usr/bin/tcsh
+#mapped/%.v: SHELL := /usr/bin/tcsh
 mapped/%.v: source/%.sv $(addprefix source/,$(DEP_SUB_FILES))
 	@echo "Synthesizing and Compiling design: $@\n"
 	@$(MAKE) --no-print-directory syn_mapped MAIN_FILE='$*.sv' DEP_SUB_FILES='$(DEP_SUB_FILES)' CLOCK_NAME='$(CLOCK_NAME)' CLOCK_PERIOD='$(CLOCK_PERIOD)' > $*.log
