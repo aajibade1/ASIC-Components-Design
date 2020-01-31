@@ -53,7 +53,7 @@ adder_16bit DUT (.a(tb_a), .b(tb_b), .carry_in(tb_carry_in), .sum(tb_sum), .over
 initial begin
   // Create the test-vector array with enough slots for test cases
   // STUDENT TODO: Update the array declaration to have enough slots
-  tb_test_cases = new[5];
+  tb_test_cases = new[7];
 
   // First Test Case/Test-Vector
   tb_test_cases[0].test_name = "Zeros Check";
@@ -62,26 +62,37 @@ initial begin
   tb_test_cases[0].test_cin  = 1'b0;
 
   // STUDENT TODO: Add your additional test cases here after increasing the array size
+  tb_test_cases[1].test_name = "A One, B One";
+  tb_test_cases[1].test_a    = '1;
+  tb_test_cases[1].test_b    = '1;
+  tb_test_cases[1].test_cin  = '1;
 
-  tb_test_cases[1].test_name = "A Large Number, B Small Number";
-  tb_test_cases[1].test_a    = 16'd32753;
-  tb_test_cases[1].test_b    = 16'd2;
-  tb_test_cases[1].test_cin  = 1'b1;
+  tb_test_cases[2].test_name = "A Zero, B Zero";
+  tb_test_cases[2].test_a    = '0;
+  tb_test_cases[2].test_b    = '0;
+  tb_test_cases[2].test_cin  = '0;
 
-  tb_test_cases[2].test_name = "B Large Number, A Small Number";
-  tb_test_cases[2].test_a    = 16'd10;
-  tb_test_cases[2].test_b    = 16'd56867;
-  tb_test_cases[2].test_cin  = 1'b0;
-
-  tb_test_cases[3].test_name = "A Large Number, B Large Number";
-  tb_test_cases[3].test_a    = 16'd43454;
-  tb_test_cases[3].test_b    = 16'd37637;
+  tb_test_cases[3].test_name = "A Large Number, B Small Number";
+  tb_test_cases[3].test_a    = 16'd32753;
+  tb_test_cases[3].test_b    = 16'd2;
   tb_test_cases[3].test_cin  = 1'b1;
 
-  tb_test_cases[4].test_name = "A Small Number, B Small Number";
-  tb_test_cases[4].test_a    = 16'd5;
-  tb_test_cases[4].test_b    = 16'd8;
-  tb_test_cases[4].test_cin  = 1'b1;
+  tb_test_cases[4].test_name = "B Large Number, A Small Number";
+  tb_test_cases[4].test_a    = 16'd10;
+  tb_test_cases[4].test_b    = 16'd56867;
+  tb_test_cases[4].test_cin  = 1'b0;
+
+  tb_test_cases[5].test_name = "A Large Number, B Large Number";
+  tb_test_cases[5].test_a    = 16'd43454;
+  tb_test_cases[5].test_b    = 16'd37637;
+  tb_test_cases[5].test_cin  = 1'b1;
+
+  tb_test_cases[6].test_name = "A Small Number, B Small Number";
+  tb_test_cases[6].test_a    = 16'd5;
+  tb_test_cases[6].test_b    = 16'd8;
+  tb_test_cases[6].test_cin  = 1'b1;
+
+
 
 end
 

@@ -354,7 +354,7 @@ write_file -format verilog -hierarchy -output "mapped/$(MOD_NAME).v"
 # 2nd Compilation run
 # Uncomment below to set timing, area, power, etc. constraints
   set_structure true -design $(MOD_NAME) -boolean true -boolean_effort medium
-  set_max_delay 6.42 -from b[0] -to sum[15]
+  set_max_delay 6.41 -from b[0] -to sum[15]
 # set_max_area <area>
 # set_max_total_power <power> mW
 

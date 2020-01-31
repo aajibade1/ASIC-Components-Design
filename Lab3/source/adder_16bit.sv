@@ -13,5 +13,25 @@ module adder_16bit
 );
 
 	// STUDENT: Fill in the correct port map with parameter override syntax for using your n-bit ripple carry adder design to be an 16-bit ripple carry adder design
-adder_nbit #(16) nb (.a(a), .b(b), .carry_in(carry_in), .sum(sum), .overflow(overflow));
+	genvar i;	
+	generate
+
+	for(i = 0;i < 16; i = i+1)
+	  begin
+		always @ (a[i], b[i], carry_in)
+		begin
+		assert((a[i] == 1'b1) || (a[i] == 1'b0))
+	        	else $error("input a not digital logic value");
+
+		assert((b[i] == 1'b1) || (b[i] == 1'b0))
+	        	else $error("input 'b' not digital logic value");
+
+	        assert((carry_in == 1'b1) || (carry_in == 1'b0)) 
+			else $error("input 'carry_in' not digital logic value");
+
+		end
+	end
+	endgenerate
+	adder_nbit #(16) nb (.a(a), .b(b), .carry_in(carry_in), .sum(sum), .overflow(overflow));
+
 endmodule
