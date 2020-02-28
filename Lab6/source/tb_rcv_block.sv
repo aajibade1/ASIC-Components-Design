@@ -295,7 +295,113 @@ module tb_rcv_block();
     check_outputs(tb_test_data_read);
   
     // Append additonal test cases here (such as overrun case)
+    // Test case 3: Overrun
+    @(negedge tb_clk);
+    @(negedge tb_clk);
+    tb_test_num += 1;
+    tb_test_case = "Overrun Test";
     
+    // Setup packet info for debugging/verificaton signals
+    tb_test_data       = 8'b11010101;
+    tb_test_stop_bit   = 1'b1;
+    tb_test_bit_period = NORM_DATA_PERIOD;
+    tb_test_data_read  = 1'b1;
+    
+    // Define expected ouputs for this test case
+    // For a good packet RX Data value should match data sent
+    tb_expected_rx_data       = tb_test_data;
+    // Valid stop bit ('1') -> Valid data -> Active data ready output
+    tb_expected_data_ready    = tb_test_stop_bit; 
+    // Framing error if and only if bad stop_bit ('0') was sent
+    tb_expected_framing_error = ~tb_test_stop_bit;
+    // Not intentionally creating an overrun condition -> overrun should be 0
+    tb_expected_overrun       = 1'b1;
+    
+    // DUT Reset
+    reset_dut;
+    
+    // Send packet
+    send_packet(tb_test_data, tb_test_stop_bit, tb_test_bit_period);
+    repeat(10)
+        @(posedge tb_clk);
+    tb_test_data = 8'b10011010;
+    tb_expected_rx_data       = tb_test_data;
+    // Valid stop bit ('1') -> Valid data -> Active data ready output
+    tb_test_data_read = 1'b0;
+    send_packet(tb_test_data, tb_test_stop_bit, tb_test_bit_period);
+    
+    // Wait for 2 data periods to allow DUT to finish processing the packet
+    #(tb_test_bit_period * 2);
+    
+    // Check outputs
+    check_outputs(tb_test_data_read);
+    // Test case 4: Normal Packet, max slower data rate
+    @(negedge tb_clk);
+    //@(negedge tb_clk);
+    tb_test_num += 1;
+    tb_test_case = "Slow clock Test";
+    
+    // Setup packet info for debugging/verificaton signals
+    tb_test_data       = 8'b11010101;
+    tb_test_stop_bit   = 1'b1;
+    tb_test_bit_period = WORST_SLOW_DATA_PERIOD;
+    tb_test_data_read  = 1'b1;
+    
+    // Define expected ouputs for this test case
+    // For a good packet RX Data value should match data sent
+    tb_expected_rx_data       = tb_test_data;
+    // Valid stop bit ('1') -> Valid data -> Active data ready output
+    tb_expected_data_ready    = tb_test_stop_bit; 
+    // Framing error if and only if bad stop_bit ('0') was sent
+    tb_expected_framing_error = ~tb_test_stop_bit;
+    // Not intentionally creating an overrun condition -> overrun should be 0
+    tb_expected_overrun       = 1'b0;
+    
+    // DUT Reset
+    reset_dut;
+    
+    // Send packet
+    send_packet(tb_test_data, tb_test_stop_bit, tb_test_bit_period);
+        
+    // Wait for 2 data periods to allow DUT to finish processing the packet
+    #(tb_test_bit_period * 2);
+    
+    // Check outputs
+    check_outputs(tb_test_data_read);   
+
+    // Test case 5: Data Packet with Framing error, Normal data rate
+    @(negedge tb_clk);
+    //@(negedge tb_clk);
+    tb_test_num += 1;
+    tb_test_case = "Overrun Test";
+    
+    // Setup packet info for debugging/verificaton signals
+    tb_test_data       = 8'b11010101;
+    tb_test_stop_bit   = 1'b0;
+    tb_test_bit_period = NORM_DATA_PERIOD;
+    tb_test_data_read  = 1'b0;
+    
+    // Define expected ouputs for this test case
+    // For a good packet RX Data value should match data sent
+    tb_expected_rx_data       = '1;
+    // Valid stop bit ('1') -> Valid data -> Active data ready output
+    tb_expected_data_ready    = tb_test_stop_bit; 
+    // Framing error if and only if bad stop_bit ('0') was sent
+    tb_expected_framing_error = ~tb_test_stop_bit;
+    // Not intentionally creating an overrun condition -> overrun should be 0
+    tb_expected_overrun       = 1'b0;
+    
+    // DUT Reset
+    reset_dut;
+    
+    // Send packet
+    send_packet(tb_test_data, tb_test_stop_bit, tb_test_bit_period);
+    
+    // Wait for 2 data periods to allow DUT to finish processing the packet
+    #(tb_test_bit_period * 2);
+    
+    // Check outputs
+    check_outputs(tb_test_data_read);
   end
 
 endmodule
