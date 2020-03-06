@@ -1,0 +1,8 @@
+1. Minimum time to be asserted to ensure correct operation is 2 clock cycles
+2. Minimum time to remain valid is 1 clock cycle
+
+3.Since for this lab, we made a high-pass FIR filter, it does make sense that the image files turned out as they did. and given the resulting files produces an average of the pixels, this gives a valid difference.
+
+4.General syntax is $ followed by the desired function, such as $fscanf()
+
+5.Available format specifiers include %c and %s
