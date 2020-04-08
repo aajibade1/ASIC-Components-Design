@@ -16,12 +16,13 @@ include /home/ecegrid/a/ece337/Course_Prod/course_make_vars
 # (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-COMPONENT_FILES	:= apb_slave.sv rcv_block.sv flex_counter.sv flex_stp_sr.sv rcu.sv timer.sv rx_data_buff.sv sr_9bit.sv start_bit_det.sv stop_bit_chk.sv stp_sr_4_msb.sv 
+COMPONENT_FILES	:= 
+##apb_slave.svrcv_block.sv apb_bus.sv flex_counter.sv flex_stp_sr.sv rcu.sv timer.svrx_data_buff.sv sr_9bit.sv start_bit_det.sv stop_bit_chk.sv stp_sr_4_msb.sv 
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-TOP_LEVEL_FILE	:= apb_uart_rx.sv
+TOP_LEVEL_FILE	:= apb_slave.sv
 
 # Specify the filepath of the test bench you want to use (ie. tb_top_level.sv)
 # (do not include the source folder in the name)
@@ -273,11 +274,12 @@ CLOCK_PERIOD	:= 2.5
 
 # Set the default value of the source files for sub modules to be an empty string so that
 # it will only be used if overwritten at invocation
-DEP_SUB_FILES := apb_slave.sv rcv_block.sv flex_counter.sv flex_stp_sr.sv rcu.sv timer.sv rx_data_buff.sv sr_9bit.sv start_bit_det.sv stop_bit_chk.sv stp_sr_4_msb.sv   
+DEP_SUB_FILES := 
+##apb_slave.sv rcv_block.sv apb_bus.sv flex_counter.sv flex_stp_sr.sv rcu.sv timer.svrx_data_buff.sv sr_9bit.sv start_bit_det.sv stop_bit_chk.sv stp_sr_4_msb.sv   
 
 # Set the default value of the main source file to an empty string since it will be
 # overwritten by each rule where it is used anyways
-MAIN_FILE := apb_uart_rx.sv
+MAIN_FILE := apb_slave.sv
 
 # Set the module's name to always be the same as the basename of the file
 # (a.k.a. the file name without the file extension)

@@ -262,6 +262,11 @@ module tb_fir_filter();
 		tb_test_vectors[1].samples	= {16'd1000, 16'd1000, 16'd100, 16'd100};
 		tb_test_vectors[1].results	= {16'd450, 16'd500, 16'd50 ,16'd50};
 		tb_test_vectors[1].errors		= {1'b0, 1'b0, 1'b0, 1'b0};
+        //Overflow
+        tb_test_vectors[2].coeffs		= tb_test_vectors[0].coeffs;
+        tb_test_vectors[2].samples	= {16'h0, 16'hFFF, 16'h0, 16'hFFFF};
+        tb_test_vectors[2].results	= {16'd98303, 16'd98303, 16'hFFFF ,16'd32767};
+        tb_test_vectors[2].errors		= {1'b1, 1'b1, 1'b0, 1'b0}; 
 	end
 	
 	// Test bench process

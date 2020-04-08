@@ -9,6 +9,8 @@
 module rcv_block(
     input wire clk,
     input wire n_rst,
+    input wire [3:0] data_size,
+    input wire [13:0] bit_period,
     input wire serial_in,
     input wire data_read,
     output reg [7:0]rx_data,
@@ -42,6 +44,8 @@ module rcv_block(
     timer tim(
         .clk(clk),
         .n_rst(n_rst),
+        .data_size(data_size),
+        .bit_period(bit_period),
         .enable_timer(enable_timer),
         .shift_enable(shift_enable),
         .packet_done(packet_done)

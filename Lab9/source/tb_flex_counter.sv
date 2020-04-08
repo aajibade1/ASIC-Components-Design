@@ -78,7 +78,7 @@ module tb_flex_counter();
   endtask
   // Task to cleanly and consistently check DUT output values
   task check_rollover;
-    input logic  expected_value;
+    input logic expected_value;
     input string check_rollover;
   begin
     if(expected_value == tb_rollover_flag) begin // Check passed
@@ -91,7 +91,7 @@ module tb_flex_counter();
   endtask
 
   task check_count_out;
-    input logic  expected_value;
+    input logic [NUM_CNT_BITS-1:0]expected_value;
     input string check_tag;
   begin
     if(expected_value == tb_count_out) begin // Check passed
@@ -200,9 +200,9 @@ module tb_flex_counter();
     // Assign test case stimulus
     @(negedge tb_clk); 
     tb_count_enable = 1'b1;
-    tb_rollover_val = 4'd5;
+    tb_rollover_val = 4'd15;
 
-    repeat(9)
+    repeat(27)
         @(posedge tb_clk); 
     // Check results
     #(CHECK_DELAY);
@@ -237,12 +237,13 @@ module tb_flex_counter();
    
     repeat(16)
         @(posedge tb_clk);
-    #(CHECK_DELAY);
+   // #(CHECK_DELAY);
+    @(negedge tb_clk);
     check_rollover(1'd1,"check Continuous Rollover");
-
-    @(posedge tb_clk);
-    #(CHECK_DELAY);
-    check_count_out(4'd2, "Check Countinuos count");
+    check_clear("Checking if cleared");
+   // @(posedge tb_clk);
+    @(negedge tb_clk);
+    check_count_out(4'd1, "Check Countinuos count");
     
     // ************************************************************************
     // Test Case 4: Discontinuos Counting
@@ -271,16 +272,16 @@ module tb_flex_counter();
     tb_rollover_val = 4'd4;
  
     @(posedge tb_clk); 
-    #(CHECK_DELAY)
-    check_count_out(4'd1,"Discontinuos Counting");
-    
-    @(negedge tb_clk);
-    tb_count_enable = 1'b0;
     @(posedge tb_clk); 
-  //  @(posedge tb_clk);
+    //@(posedge tb_clk); 
+  //  #(CHECK_DELAY)
+    @(negedge tb_clk);
+    check_count_out(4'd2,"Discontinuos Counting");
+    tb_count_enable = 1'b0;
     
-    #(CHECK_DELAY);
-    check_count_out(4'd1,"Discontinuos Counting");  
+    //#(CHECK_DELAY);
+    @(negedge tb_clk);
+    check_count_out(4'd2,"Discontinuos Counting");  
     // ************************************************************************
     // Test Case 5: Clearing while counting to check clear vs count_enable priority
     // ************************************************************************    
@@ -304,9 +305,11 @@ module tb_flex_counter();
     @(posedge tb_clk); 
    // #(CHECK_DELAY);
     clear();
+    check_clear("Checking clear");
     @(posedge tb_clk);
     #(CHECK_DELAY);
-    check_count_out( 4'b1,"Clear while counting");
+    check_count_out( 4'd1,"Clear while counting");
+    check_count_out( 4'd2, "Clear while counting");
 
   end
 endmodule
