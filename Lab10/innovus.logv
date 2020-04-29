@@ -1,0 +1,69 @@
+[04/08 03:06:09      0s] 
+[04/08 03:06:09      0s] Cadence Innovus(TM) Implementation System.
+[04/08 03:06:09      0s] Copyright 2016 Cadence Design Systems, Inc. All rights reserved worldwide.
+[04/08 03:06:09      0s] 
+[04/08 03:06:09      0s] Version:	v16.12-s051_1, built Wed Aug 17 12:18:54 PDT 2016
+[04/08 03:06:09      0s] Options:	
+[04/08 03:06:09      0s] Date:		Wed Apr  8 03:06:09 2020
+[04/08 03:06:09      0s] Host:		ecegrid-thin5.ecn.purdue.edu (x86_64 w/Linux 3.10.0-1062.18.1.el7.x86_64) (12cores*48cpus*Intel(R) Xeon(R) CPU E5-2697 v2 @ 2.70GHz 30720KB)
+[04/08 03:06:09      0s] OS:		CentOS Linux release 7.7.1908 (Core)
+[04/08 03:06:09      0s] 
+[04/08 03:06:09      0s] License:
+[04/08 03:06:09      0s] 		invs	Innovus Implementation System	16.1	checkout succeeded
+[04/08 03:06:09      0s] 		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.
+[04/08 03:06:20     10s] @(#)CDS: Innovus v16.12-s051_1 (64bit) 08/17/2016 12:18 (Linux 2.6.18-194.el5)
+[04/08 03:06:20     10s] @(#)CDS: NanoRoute 16.12-s051_1 NR160816-1350/16_12-UB (database version 2.30, 347.6.1) {superthreading v1.30}
+[04/08 03:06:20     10s] @(#)CDS: AAE 16.12-s026 (64bit) 08/17/2016 (Linux 2.6.18-194.el5)
+[04/08 03:06:20     10s] @(#)CDS: CTE 16.12-s023_1 () Aug 12 2016 01:35:46 ( )
+[04/08 03:06:20     10s] @(#)CDS: SYNTECH 16.12-s009_1 () Aug 11 2016 01:33:09 ( )
+[04/08 03:06:20     10s] @(#)CDS: CPE v16.12-s054
+[04/08 03:06:20     10s] @(#)CDS: IQRC/TQRC 15.2.4-s467 (64bit) Wed Jul 20 17:12:38 PDT 2016 (Linux 2.6.18-194.el5)
+[04/08 03:06:20     10s] @(#)CDS: OA 22.50-p049 Fri Jun 10 10:56:20 2016
+[04/08 03:06:20     10s] @(#)CDS: SGN 10.10-p124 (19-Aug-2014) (64 bit executable)
+[04/08 03:06:20     10s] @(#)CDS: RCDB 11.8
+[04/08 03:06:20     10s] --- Running on ecegrid-thin5.ecn.purdue.edu (x86_64 w/Linux 3.10.0-1062.18.1.el7.x86_64) (12cores*48cpus*Intel(R) Xeon(R) CPU E5-2697 v2 @ 2.70GHz 30720KB) ---
+[04/08 03:06:20     10s] Create and set the environment variable TMPDIR to /tmp/innovus_temp_20767_ecegrid-thin5.ecn.purdue.edu_mg133_5O7Q8I.
+
+[04/08 03:06:20     10s] 
+[04/08 03:06:20     10s] **INFO:  MMMC transition support version v31-84 
+[04/08 03:06:20     10s] 
+[04/08 03:06:20     10s] <CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+[04/08 03:06:20     10s] <CMD> suppressMessage ENCEXT-2799
+[04/08 03:06:21     10s] <CMD> getDrawView
+[04/08 03:06:21     10s] <CMD> loadWorkspace -name Physical
+[04/08 03:06:21     10s] <CMD> win
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:07:39     18s] <CMD> getCTSMode -engine -quiet
+[04/08 03:08:02     20s] <CMD> uiKit::addWidget .dodo -type main
+[04/08 03:08:50     24s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:50     24s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:50     24s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:53     25s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:54     25s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:54     25s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:54     25s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:54     25s] <CMD> deleteSelectedFromFPlan
+[04/08 03:08:54     25s] <CMD> deleteSelectedFromFPlan
+[04/08 03:09:06     26s] <CMD> setDrawView ameba
+[04/08 03:09:07     26s] <CMD> setDrawView fplan
+[04/08 03:09:08     26s] <CMD> setDrawView place
+[04/08 03:15:01     58s] <CMD> setPreference LogTypeInCmd 1
+[04/08 03:15:20     60s] **ERROR: (IMPSYT-6000):	No Object Selected.
+[04/08 03:15:32     61s] 
+[04/08 03:15:32     61s] *** Memory Usage v#1 (Current mem = 517.293M, initial mem = 163.832M) ***
+[04/08 03:15:32     61s] 
+[04/08 03:15:32     61s] *** Summary of all messages that are not suppressed in this session:
+[04/08 03:15:32     61s] Severity  ID               Count  Summary                                  
+[04/08 03:15:32     61s] ERROR     IMPSYT-6000          2  No Object Selected.                      
+[04/08 03:15:32     61s] *** Message Summary: 0 warning(s), 2 error(s)
+[04/08 03:15:32     61s] 
+[04/08 03:15:32     61s] --- Ending "Innovus" (totcpu=0:01:02, real=0:09:23, mem=517.3M) ---
