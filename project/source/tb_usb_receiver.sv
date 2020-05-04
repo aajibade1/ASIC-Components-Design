@@ -37,8 +37,8 @@ module tb_usb_receiver();
   integer tb_test_num;
   string  tb_test_case;
   // Test case 'inputs' used for test stimulus
-  reg [7:0] tb_test_d_plus;
-  reg [7:0] tb_test_d_minus;
+  reg [8:0] tb_test_d_plus;
+  reg [8:0] tb_test_d_minus;
   time      tb_test_bit_period;
   // Test case expected output values for the test case
   reg [7:0] tb_expected_r_data;
@@ -82,6 +82,26 @@ module tb_usb_receiver();
   end
   endtask
   
+  task send_packet2;
+    input  [8:0] data_plus;
+    input  [8:0] data_minus;
+    input  time data_period;
+    
+    integer i;
+  begin
+    // First synchronize to away from clock's rising edge
+    @(negedge tb_clk)
+    
+    // Send data bits
+    for(i = 0; i < 9; i = i + 1)
+    begin
+      tb_d_plus = data_plus[i];
+      tb_d_minus = ~data_minus[i];
+      #data_period;
+    end
+    
+  end
+  endtask 
   task reset_dut;
   begin
     // Activate the design's reset (does not need to be synchronize with clock)
@@ -502,6 +522,59 @@ module tb_usb_receiver();
 
     send_packet(tb_test_d_plus, tb_test_d_minus, tb_test_bit_period); 
    
+    // Test case 9: BIT STUFFING
+    // Synchronize to falling edge of clock to prevent timing shifts from prior test case(s)
+    @(negedge tb_clk);
+    tb_test_num  += 1;
+    tb_test_case = "SYNC BYTE -> 3 NORMAL BYTE -> EOP WORST-SLOW";
+    tb_test_d_plus = '1;
+    tb_test_d_minus = '1;
+
+    // Setup packet info for debugging/verificaton signals
+    tb_test_d_plus    = 8'b00101010;
+    tb_test_d_minus   = 8'b00101010;
+
+    tb_test_bit_period = NORM_DATA_PERIOD ;
+
+    // Define expected ouputs for this test case
+    tb_expected_r_data       = '0;
+    tb_expected_rcving    = 1'b1; 
+    tb_expected_r_error = 1'b0;
+    tb_expected_empty       = 1'b0;
+
+    // DUT Reset
+    reset_dut;
+    tb_d_plus    = 1'b1;
+    tb_d_minus  = 1'b0;
+    tb_r_enable = 1'b0;
+
+    // Send packet
+    send_packet(tb_test_d_plus, tb_test_d_minus, tb_test_bit_period);
+
+    tb_test_d_plus    = 9'b101111111;
+    tb_test_d_minus   = 9'b101111111;
+
+    send_packet2(tb_test_d_plus, tb_test_d_minus, tb_test_bit_period);
+
+    tb_test_d_plus    = 9'b110000000;
+    tb_test_d_minus   = 9'b110000000;
+
+    send_packet2(tb_test_d_plus, tb_test_d_minus, tb_test_bit_period);
+
+    tb_test_d_plus    = 9'b011111110;
+    tb_test_d_minus   = 9'b011111110;
+
+    send_packet2(tb_test_d_plus, tb_test_d_minus, tb_test_bit_period);
+
+    tb_test_d_plus    = 9'b000101010;
+    tb_test_d_minus   = 9'b100101010;
+
+    send_packet2(tb_test_d_plus, tb_test_d_minus, tb_test_bit_period);
+
+    tb_test_d_plus    = 9'b111111110;
+    tb_test_d_minus   = 9'b111111111;
+   
+    send_packet2(tb_test_d_plus, tb_test_d_minus, tb_test_bit_period);
 
 end
 endmodule

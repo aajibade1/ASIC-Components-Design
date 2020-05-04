@@ -9,7 +9,7 @@
 module rcu (input wire clk, input wire n_rst, input wire d_edge,
     input wire eop, input wire shift_enable, input wire[7:0] rcv_data,
     input wire byte_received, output reg rcving, output reg w_enable,
-    output reg r_error, input wire[3:0] bit_count
+    output reg r_error, input wire[3:0] bit_count, output reg[3:0] PID
 );
 
 typedef enum bit [4:0] {
@@ -17,6 +17,7 @@ typedef enum bit [4:0] {
     BEGINRCV,
     WAIT,
     CHECKSYNC,
+    PIDWAIT,
     WAIT1,
     OUTFIFO,
     EOPVALID,
@@ -34,6 +35,7 @@ typedef enum bit [4:0] {
     reg next_rcving;
     reg next_r_error;
     reg next_w_enable;
+    reg [3:0] next_PID;
 
     always_ff @(posedge clk, negedge n_rst) begin
         if(1'b0 == n_rst) begin
@@ -41,12 +43,14 @@ typedef enum bit [4:0] {
             rcving <= '0;
             r_error <= '0;
             w_enable <= '0;
+            PID <= '1;
         end
         else begin
             state <= next_state;
             rcving <= next_rcving;
             r_error <= next_r_error;
             w_enable <= next_w_enable;
+            PID <= next_PID;
         end
     end
 
@@ -55,6 +59,7 @@ typedef enum bit [4:0] {
         next_w_enable = w_enable;;
         next_r_error = r_error;
         next_rcving = rcving;
+        next_PID = PID;
 
         case(state)
             IDLE: begin
@@ -63,12 +68,14 @@ typedef enum bit [4:0] {
                     next_rcving = '1;
                     next_r_error = '0;
                     next_w_enable = '0;
+                    next_PID = '1;
                 end 
                 else begin 
                     next_state = IDLE;
                     next_rcving = '0;
                     next_r_error = '0;
                     next_w_enable = '0;
+                    next_PID = '1;
                 end
             end
             BEGINRCV: begin
@@ -89,7 +96,7 @@ typedef enum bit [4:0] {
             end
             CHECKSYNC: begin
                 if (rcv_data == 8'b10000000) begin
-                    next_state = WAIT1;
+                    next_state = PIDWAIT;
                     next_rcving = '1;
                     next_w_enable = '0; 
                 end
@@ -98,6 +105,24 @@ typedef enum bit [4:0] {
                     next_rcving = '1;
                     next_w_enable = '0;
                     next_r_error = '1;
+                end
+            end
+            PIDWAIT: begin
+                if (eop == 1'b1 && shift_enable == 1'b1) begin
+                    next_state = EOPVALID;
+                    next_rcving = '1;
+                    next_w_enable = '0;
+                end
+                else if(byte_received == 1'b0) begin
+                    next_state = PIDWAIT;
+                    next_rcving = '1;
+                    next_w_enable = '0;
+                end
+                else if(byte_received == 1'b1) begin
+                    next_state = WAIT1;
+                    next_rcving = '1;
+                    next_w_enable = '1;
+                    next_PID = rcv_data[3:0];
                 end
             end
             WAIT1: begin

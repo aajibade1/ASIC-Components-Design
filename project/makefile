@@ -16,7 +16,7 @@ include /home/ecegrid/a/ece337/Course_Prod/course_make_vars
 # (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-COMPONENT_FILES	:= flex_counter.sv flex_counter1.sv decode.sv edge_detect.sv eop_detect.sv flex_stp_sr.sv sync_high.sv sync_low.sv rcu.sv timer.sv shift_register.sv rx_fifo.sv
+COMPONENT_FILES	:= flex_counter.sv flex_counter1.sv decode.sv edge_detect.sv eop_detect.sv flex_stp_sr.sv sync_high.sv sync_low.sv rcu.sv timer.sv shift_register.sv rx_fifo.sv stuff_bit_detect.sv
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
@@ -273,7 +273,7 @@ CLOCK_PERIOD	:=
 
 # Set the default value of the source files for sub modules to be an empty string so that
 # it will only be used if overwritten at invocation
-DEP_SUB_FILES :=  flex_counter.sv flex_counter1.sv decode.sv edge_detect.sv eop_detect.sv flex_stp_sr.sv sync_high.sv sync_low.sv rcu.sv timer.sv shift_register.sv rx_fifo.sv
+DEP_SUB_FILES :=  flex_counter.sv flex_counter1.sv decode.sv edge_detect.sv eop_detect.sv flex_stp_sr.sv sync_high.sv sync_low.sv rcu.sv timer.sv shift_register.sv rx_fifo.sv stuff_bit_detect.sv
 
 # Set the default value of the main source file to an empty string since it will be
 # overwritten by each rule where it is used anyways
